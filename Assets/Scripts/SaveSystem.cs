@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace CoinPush
     {
         private const string CurrencyKey = "Currency_Save";
         private const string UpgradeKey = "Upgrade_Save";
+        private const string LanguageKey = "Language_Save";
+        private const string LastSessionKey = "LastSession_Time";
 
         [System.Serializable]
         private class CurrencyData
@@ -69,6 +72,38 @@ namespace CoinPush
             }
 
             return JsonUtility.FromJson<UpgradeData>(PlayerPrefs.GetString(UpgradeKey));
+        }
+
+        public static void SaveLanguage(string languageCode)
+        {
+            PlayerPrefs.SetString(LanguageKey, languageCode);
+            PlayerPrefs.Save();
+        }
+
+        public static string LoadLanguage()
+        {
+            return PlayerPrefs.GetString(LanguageKey, string.Empty);
+        }
+
+        public static void SaveLastSessionTime(DateTime time)
+        {
+            PlayerPrefs.SetString(LastSessionKey, time.ToBinary().ToString());
+            PlayerPrefs.Save();
+        }
+
+        public static DateTime LoadLastSessionTime()
+        {
+            if (!PlayerPrefs.HasKey(LastSessionKey))
+            {
+                return default;
+            }
+
+            if (long.TryParse(PlayerPrefs.GetString(LastSessionKey), out long data))
+            {
+                return DateTime.FromBinary(data);
+            }
+
+            return default;
         }
     }
 }

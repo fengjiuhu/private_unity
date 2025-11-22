@@ -23,17 +23,18 @@ Assets/
 4. Open `Assets/Scenes/MainScene.unity` and place the prefabs in the scene with a plane floor and camera.
 5. Add a `GameManager` object and assign: `CurrencyManager`, `UIManager`, `UpgradeSystem`, `UpgradeManager`, `PlayerController`, `PlayerUpgrader`, `CoinSpawner`, and `ObjectPooler` (pool id `coins`).
 6. Optional: add `SoundManager`, `HapticManager`, `DebugPanel`, and UI widgets (`CurrencyUI`, `LevelPanelUI`, `UpgradePanelUI`, `JoystickUI`, `SettingsUI`, `RewardUI`).
+7. Localization: place a `LocalizationManager` in scene (or allow GameManager to auto-create). Add `LocalizedText` to labels and use keys like `currency_gold`, `upgrade_speed`, `button_upgrade` to auto-switch 中/EN 文案。`SettingsUI` includes a dropdown to 切换语言，默认中文。
 
 ## Controls
 - **Virtual Joystick (Mobile):** Use `MobileJoystick.Direction` to drive `PlayerController.OnMove` through the Input System or `JoystickUI` wrapper.
 - **Keyboard/Editor:** WASD/Arrow keys when using an Input Action asset mapped to the `OnMove` callback.
 
 ## Core Systems
-- **Core:** `GameManager`, `CurrencyManager` (gold/energy/gems with save/load), `UpgradeSystem` + `UpgradeManager`, `SaveSystem`, `EventBus`, `ObjectPooler`.
+- **Core:** `GameManager`, `CurrencyManager` (gold/energy/gems with save/load), `UpgradeSystem` + `UpgradeManager`, `SaveSystem`, `EventBus`, `ObjectPooler`, `IdleIncomeSystem` (在线/离线收益)。
 - **Player:** `PlayerController`, `PlayerMotor`, `PlayerVacuum`, `PlayerCollisionHandler`, `PlayerUpgrader`, `PlayerStats`.
 - **Coins:** `Coin`, `CoinCollector`, `CoinSpawner` (density + pooling), `CoinPhysicsOptimizer`, `CoinDespawnArea`.
 - **Gates:** `MultiplierGate`, `GateTrigger`, `GateVisuals`, `MultiplierFX`.
-- **UI:** `UIManager`, `CurrencyUI`, `LevelPanelUI`, `UpgradePanelUI`, `JoystickUI`, `SettingsUI`, `RewardUI`, `ScreenSafeArea`.
+- **UI:** `UIManager`, `CurrencyUI`, `LevelPanelUI`, `UpgradePanelUI`, `JoystickUI`, `SettingsUI`（含语言切换）, `RewardUI`, `ScreenSafeArea`, `LocalizedText`, `LocalizationManager`。
 - **Effects/Tools:** `CoinPickupFX`, `UINumberPopup`, `ShakeEffect`, `FloatingTextController`, `SimpleAnimator`, `SoundManager`, `HapticManager`, `DebugPanel`, `BuildToolsEditor`, `LevelEditorWindow`.
 
 ## Building

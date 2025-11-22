@@ -17,6 +17,8 @@ namespace CoinPush
         [SerializeField] private CoinSpawner coinSpawner;
         [SerializeField] private PlayerController player;
         [SerializeField] private PlayerUpgrader playerUpgrader;
+        [SerializeField] private LocalizationManager localizationManager;
+        [SerializeField] private IdleIncomeSystem idleIncomeSystem;
 
         private static GameManager instance;
 
@@ -60,13 +62,20 @@ namespace CoinPush
             coinSpawner ??= FindObjectOfType<CoinSpawner>();
             player ??= FindObjectOfType<PlayerController>();
             playerUpgrader ??= FindObjectOfType<PlayerUpgrader>();
+            localizationManager ??= FindObjectOfType<LocalizationManager>();
+            idleIncomeSystem ??= FindObjectOfType<IdleIncomeSystem>();
 
+            if (localizationManager == null)
+            {
+                localizationManager = new GameObject("LocalizationManager").AddComponent<LocalizationManager>();
+            }
             currencyManager?.Initialize();
             playerUpgrader?.Initialize(currencyManager);
             upgradeSystem?.Initialize(currencyManager, player);
             upgradeManager?.Initialize(playerUpgrader != null ? playerUpgrader.GetComponent<PlayerMotor>()?.GetStats() : null, currencyManager);
             uiManager?.Initialize(currencyManager, upgradeSystem, player);
             coinSpawner?.BeginSpawning();
+            idleIncomeSystem?.Initialize(currencyManager);
         }
 
         private void OnApplicationQuit()
