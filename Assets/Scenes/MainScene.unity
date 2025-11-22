@@ -1,0 +1,9 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1
+GameObject:
+  m_Name: MainScenePlaceholder
+  m_Component: []
+  m_Layer: 0
+  m_IsActive: 1
+# This placeholder scene will be rebuilt in Unity Editor.
